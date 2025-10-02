@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(     
@@ -43,6 +44,11 @@ sphereMesh.position.set(-5, 2, -3);
 coneMesh.position.set(0, -2, 0);
 torusMesh.position.set(0, 3, 0);
 
+const controls = new OrbitControls(camera, renderer.domElement);
+
+camera.position.set(0, 0, 10);
+controls.update();
+
 let direction = 1;
 const speed = 0.05; 
 const rightLimit = 5; 
@@ -61,10 +67,12 @@ function animate() {
 
     coneMesh.rotation.x += 0.01;
     torusMesh.rotation.z += 0.02;
-    
+
+    controls.update();
+
     renderer.render(scene, camera);
 }
 
 animate();
  
-document.body.appendChild( renderer.domElement );
+document.body.appendChild(renderer.domElement);
